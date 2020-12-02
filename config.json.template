@@ -1,0 +1,15 @@
+{ 
+	"Prefixes": [
+		{"Server": "<server-id>", "Prefix": "<server-name-previx>" }		
+	],
+	"Servers":[], //string ids like "101","102"... 
+    "AlternateAdmin": [], //string ids like "101","102"... 
+    "NoAdmin": [], //string ids like "101","102"... 
+   "CorsAllowedAddress": ["http://localhost:8100", "http://localhost:4200", "http://localhost:5000", "http://localhost:8080"],
+   "UserName": "<domain\\username>",
+   "DefaultPassWord": "<password>",
+   "DefaultUserAlternatePassWord": "<alternate-password>",
+   "AlternateUser": "<domain\\username>",
+   "AlternatePassMask": "<passwork-mask>",  //this mask uses 2 -> %s placeholders 
+   "ServersIPMask": "<ip mask>" // this mask used 1 -> %d placeholders
+}
