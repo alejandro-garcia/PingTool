@@ -24,7 +24,7 @@ import (
 	"github.com/gen2brain/beeep"
 )
 
-var restCode string
+var serverCode string
 var verifyDate string
 var option string
 var invokeCmd string
@@ -94,8 +94,8 @@ func executeCommand(command string, rest string, ip string, user string, passwor
 var isAbsWinDrive = regexp.MustCompile(`^[a-zA-Z]\:\\`)
 
 func displayHelp() {
-	fmt.Println("pingtool.exe [-restcode ###] [-option p|w] [-w] [-invokecmd <script o ejecutable> [-invokeargs <argumentos>]] [--notify] [--help|/?]")
-	fmt.Println("   restcode: codigo del restaurante o lista de restaurantes separadas por coma")
+	fmt.Println("pingtool.exe [-serverCode ###] [-option p|w] [-w] [-invokecmd <script o ejecutable> [-invokeargs <argumentos>]] [--notify] [--help|/?]")
+	fmt.Println("   serverCode: codigo del restaurante o lista de restaurantes separadas por coma")
 	fmt.Println("   option: opciones disponibles: ")
 	fmt.Println("           p : [default] verifica que servidores responden al ping")
 	fmt.Println("	w: Levanta servidor web (api-rest) en el puerto localhost:4500")
@@ -107,12 +107,12 @@ func displayHelp() {
 }
 
 func displayArgs() {
-	if restCode != "" || verifyDate != "" || option != "" {
+	if serverCode != "" || verifyDate != "" || option != "" {
 		fmt.Println("Parametros cmdline:")
 	}
 
-	if restCode != "" {
-		fmt.Printf("restcode: %s\n", restCode)
+	if serverCode != "" {
+		fmt.Printf("serverCode: %s\n", serverCode)
 	}
 
 	if option != "" {
@@ -154,7 +154,7 @@ func parseArgs() {
 	parseArg("--help")
 	parseArg("/?")
 	parseArg("--notify")
-	restCode = parseArg("-restcode")
+	serverCode = parseArg("-serverCode")
 	//verifyDate = parseArg("-verifydate")
 	//expectedValue = parseArg("-expected")
 	option = parseArg("-w")
@@ -170,15 +170,15 @@ func parseArgs() {
 	}
 }
 
-func handlePing(restCode string, ipaddress string) bool {
+func handlePing(serverCode string, ipaddress string) bool {
 	if !common.Ping(ipaddress) {
-		if common.IndexOf(restCode, svrnotconnected) == -1 {
-			svrnotconnected = append(svrnotconnected, restCode)
+		if common.IndexOf(serverCode, svrnotconnected) == -1 {
+			svrnotconnected = append(svrnotconnected, serverCode)
 		}
 		return false
 	}
 
-	svrconnected = append(svrconnected, restCode)
+	svrconnected = append(svrconnected, serverCode)
 	return true
 }
 
@@ -238,8 +238,8 @@ func subMenu() string {
 
 func mainMenu() string {
 	for {
-		if len(restCode) != 0 {
-			serverID = restCode
+		if len(serverCode) != 0 {
+			serverID = serverCode
 			break
 		}
 
