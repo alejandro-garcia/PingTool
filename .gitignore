@@ -5,3 +5,4 @@ pingtool
 deploy-servicio-windows.ps1
 vpagent.exe
 watcherserviceupdater.exe
+nonpublic.go

@@ -36,9 +36,13 @@ func StartWebServer() {
 	r.HandleFunc("/warehouseList", getWarehousesList).Methods("GET")
 	r.HandleFunc("/warehouses-text", getWarehousesText).Methods("GET")
 	r.HandleFunc("/sayHello", sayHello).Methods("GET")
+	// handlers below are from private package
+	r.HandleFunc("/warehouseInfo/{id}", getWarehouseInfo).Methods("GET")
+	r.HandleFunc("/warehouseNonUpdated/{app}", getWarehouseNonUpdated).Methods("GET")
+	r.HandleFunc("/duplicatedSalesHeader/{id}/{begindate}/{enddate}", getSalesPrinterDuplicatesHeaders).Methods("GET")
 	common.PrnLog("Iniciando API Web en el Puerto :4500", "yellow", false, false)
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8100", "http://localhost:4200", "http://localhost:5000", "http://localhost:8080", "http://sp2013:8080"},
+		AllowedOrigins:   core.Config.CorsAllowedAddress,
 		AllowCredentials: true,
 	})
 	handler := c.Handler(r)

@@ -25,6 +25,8 @@ type ConfigModel struct {
 	AlternateUser                string
 	AlternatePassMask            string
 	ServersIPMask                string
+	CorsAllowedAddress           []string
+	CurrentVersions              map[string]string
 }
 
 //Servers global map
@@ -112,4 +114,9 @@ func SetupWarehouseCredential(restCode string) (string, string) {
 	}
 
 	return user, password
+}
+
+// ParseVersionNumber takes version of format: 1.0.0.0 and returns it on format: 1.0.0
+func ParseVersionNumber(version string) string {
+	return strings.Join(strings.Split(version, ".")[:3], ".")
 }

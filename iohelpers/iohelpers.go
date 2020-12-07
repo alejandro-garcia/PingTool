@@ -1,6 +1,7 @@
 package iohelpers
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -12,8 +13,15 @@ import (
 func FileExists(filePath string) bool {
 	info, err := os.Stat(filePath)
 	if os.IsNotExist(err) {
+		fmt.Println("dentro de IsNotExist()")
 		return false
 	}
+
+	if err != nil {
+		fmt.Println("FileExists() -> Error: " + err.Error())
+		return false
+	}
+
 	return !info.IsDir()
 }
 
@@ -27,20 +35,23 @@ func FolderExists(folderPath string) bool {
 }
 
 //GetFileLastWriteTime (filePath string, restCode string)
-func GetFileLastWriteTime(filePath string, restCode string) {
+func GetFileLastWriteTime(filePath string, restCode string) string {
 	fileName := getFileName(filePath)
 
-	if FileExists(filePath) {
+	if !FileExists(filePath) {
 		common.PrnLog(restCode+" : Archivo "+fileName, "yellow", true, false)
 		common.PrnLog("- NO ENCONTRADO", "red", false, true)
-		return
+		return "-1"
 	}
 
 	info, err := os.Stat(filePath)
 	if err == nil {
 		lastWriteTime := common.FormatDate(info.ModTime(), "dd/mm/yyyy HH:MM:SS")
 		common.PrnLog(restCode+" : Fecha "+fileName+" : "+lastWriteTime, "yellow", false, false)
+		return lastWriteTime
 	}
+
+	return "-1"
 }
 
 //ReadTextFileContent (filePath string) string
