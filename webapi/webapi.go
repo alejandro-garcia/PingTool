@@ -40,6 +40,7 @@ func StartWebServer() {
 	r.HandleFunc("/warehouseInfo/{id}", getWarehouseInfo).Methods("GET")
 	r.HandleFunc("/warehouseNonUpdated/{app}", getWarehouseNonUpdated).Methods("GET")
 	r.HandleFunc("/duplicatedSalesHeader/{id}/{begindate}/{enddate}", getSalesPrinterDuplicatesHeaders).Methods("GET")
+	r.HandleFunc("/warehouseApps", getWarehouseApps).Methods("GET")
 	common.PrnLog("Iniciando API Web en el Puerto :4500", "yellow", false, false)
 	c := cors.New(cors.Options{
 		AllowedOrigins:   core.Config.CorsAllowedAddress,
