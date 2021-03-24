@@ -77,6 +77,12 @@ func ReadTextFileContent(filePath string) string {
 	return result
 }
 
+//WriteTextFileContent (filePath string, fileContent []byte) error
+func WriteTextFileContent(filePath string, fileContent []byte) error {
+	err := ioutil.WriteFile(filePath, fileContent, 0644)
+	return err
+}
+
 func getFileName(filePath string) string {
 	return filePath[strings.LastIndex(filePath, common.GetOSSeparator())+1 : len(filePath)]
 }

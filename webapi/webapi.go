@@ -44,6 +44,9 @@ func StartWebServer() {
 	r.HandleFunc("/deleteDuplicatedPrinterSales", deleteDuplicatesPrinterSales).Methods("POST")
 	r.HandleFunc("/warehouseApps", getWarehouseApps).Methods("GET")
 	r.HandleFunc("/excludedWarehousesSalesJob", getExcludedWarehousesSalesJob).Methods("GET")
+	r.HandleFunc("/insertWarehouseToExcludedSalesJob", insertExcludedWarehousesSalesJob).Methods("POST")
+	r.HandleFunc("/setDobValue", setDobValue).Methods("POST")
+	//r.HandleFunc("/deleteWarehouseToExcludedSalesJob", deleteExcludedWarehousesSalesJob).Methods("DELETE")
 	common.PrnLog("Iniciando API Web en el Puerto :4500", "yellow", false, false)
 	c := cors.New(cors.Options{
 		AllowedOrigins:   core.Config.CorsAllowedAddress,
