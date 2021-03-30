@@ -211,6 +211,8 @@ func subMenu() string {
 		fmt.Println("Opciones disponibles: ")
 		fmt.Println("")
 		fmt.Println("[P] Verificar conectividad (PING) de los servidores")
+
+		webapi.DisplayPrivateOptions()
 		fmt.Println("[Q] para salir")
 
 		fmt.Print("ingrese la opcion deseada: ")
@@ -221,9 +223,15 @@ func subMenu() string {
 		if r.MatchString(opt) {
 			break
 		} else {
-			c := exec.Command("cmd", "/c", "cls")
-			c.Stdout = os.Stdout
-			c.Run()
+			if !webapi.IsPrivateOptionSelected(opt) {
+				c := exec.Command("cmd", "/c", "cls")
+				c.Stdout = os.Stdout
+				c.Run()
+			} else {
+				webapi.ProcessPrivateOptionSelection(opt, serverID)
+				break
+			}
+
 		}
 	}
 
@@ -464,6 +472,8 @@ func main() {
 		} else {
 			checkConnectedServers()
 		}
+	default:
+
 	}
 
 	color.Unset()

@@ -100,6 +100,19 @@ func Ping(addr string) bool {
 	}
 }
 
+//ExecuteCustomOSCommand (command string, args ...string) string {
+func ExecuteCustomOSCommand(command string, args ...string) string {
+	if runtime.GOOS == "windows" {
+		out, err := exec.Command(command, args...).CombinedOutput()
+		if err != nil {
+			return err.Error()
+		}
+		return string(out)
+	} else {
+		return "NOT IMPLEMENTED!"
+	}
+}
+
 //NetUse (ipAddress string, user string, password string) bool
 func NetUse(ipAddress string, user string, password string) bool {
 	result := true
@@ -160,4 +173,3 @@ func GetOSSeparator() string {
 	}
 	return "/"
 }
-
